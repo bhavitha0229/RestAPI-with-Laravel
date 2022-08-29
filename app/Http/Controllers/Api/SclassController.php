@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Sclass;
+use PhpParser\NodeVisitor\FindingVisitor;
 
 class SclassController extends Controller
 {
@@ -31,5 +32,20 @@ class SclassController extends Controller
     {
         $sclass = Sclass::findOrFail($id);
         return response()->json($sclass);
+    }
+
+    public function Update(Request $request, $id)
+    {
+        Sclass::findOrFail($id)->update([
+            'class_name' => $request->class_name,
+        ]);
+        return response('Student class Updated Successfully');
+    }
+
+    public function Delete($id)
+    {
+        Sclass::findOrFail($id)->delete();
+
+        return response('Student class Deleted Successfully');
     }
 }
